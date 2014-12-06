@@ -6,7 +6,7 @@ var <%= componentName %>State = Marty.createStateMixin({
   listenTo: [<%= storeName %>],
   getState: function () {
     return {
-      '<%= name %>': <%= storeName %>.get(this.props.id)
+      <%= name %>: <%= storeName %>.getById(this.props.id)
     };
   }
 });
@@ -14,7 +14,7 @@ var <%= componentName %>State = Marty.createStateMixin({
 var <%= componentName %> = React.createClass({
   mixins: [<%= componentName %>State],
   render: function () {
-    return <%= name %>.when({
+    return this.state.<%= name %>.when({
       pending: function () {
         return <div className='loading'>Loading</div>;
       },

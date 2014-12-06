@@ -4,7 +4,8 @@ module.exports = function (grunt) {
   var INPUT_PATH = 'app/index.js';
   var OUTPUT_PATH = './dist/javascripts/<%= name %>.js';
 
-  grunt.registerTask('default', 'concurrent');
+  grunt.registerTask('test', 'karma');
+  grunt.registerTask('default', 'concurrent:serve');
   grunt.registerTask('release', ['browserify:release', 'exorcise', 'uglify:release']);
 
   grunt.initConfig({
@@ -19,6 +20,11 @@ module.exports = function (grunt) {
         options: {
           logConcurrentOutput: true
         }
+      }
+    },
+    karma: {
+      unit: {
+        configFile: 'karma.conf.js'
       }
     },
     browserify: {
@@ -56,7 +62,7 @@ module.exports = function (grunt) {
       src: [INPUT_PATH],
       dest: OUTPUT_PATH,
       options: {
-        transform: ['reactify'],
+        transform: ['reactify', 'envify'],
         watch: !!options.watch,
         keepAlive: !!options.watch,
         browserifyOptions: {

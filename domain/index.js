@@ -1,3 +1,4 @@
+var format = require('util').format;
 var pluralize = require('pluralize');
 var str = require('underscore.string');
 var yeoman = require('yeoman-generator');
@@ -18,6 +19,7 @@ module.exports = yeoman.generators.Base.extend({
     this.storeFileName = camelCase(this.name + 'Store');
     this.addConstant = 'ADD_' + this.name.toUpperCase();
     this.resourceName = pluralize(camelCase(this.name));
+    this.componentFileName = camelCase(this.className());
     this.addFunctionName = 'add' + str.classify(this.name);
     this.httpApiFileName = camelCase(this.name + 'HttpApi');
     this.actionCreatorName = this.className('ActionCreators');
@@ -30,14 +32,39 @@ module.exports = yeoman.generators.Base.extend({
     return str.classify(this.name + (type || ""));
   },
   writing: function () {
-    this._ = str;
-    this.camelCase = camelCase;
     this.template('store.js', filePath('stores', this.storeName));
     this.template('httpApi.js', filePath('apis', this.httpApiName));
     this.template('constants.js', filePath('constants', this.constantsName));
     this.template('component.js', filePath('components', this.componentName));
     this.template('actionCreator.js', filePath('actions', this.actionCreatorName));
     this.template('serverActionCreator.js', filePath('actions', this.serverActionCreatorName));
+
+    this.addClientRoute();
+    this.addServerRoute();
+  },
+  addClientRoute: function () {
+    var routes = 'var routes = [';
+    var routerPath = 'app/router.js';
+    var route = format('  <Route name="%s" path="/%s/:id" handler={require(\'./components/%s\')} />,',
+      camelCase(this.name), this.resourceName, this.componentFileName
+    );
+    var routerContent = this.readFileAsString(routerPath).replace(routes, routes + '\n' + route);
+
+    this.write(routerPath, routerContent);
+  },
+  addServerRoute: function () {
+    var exports = 'module.exports = app;';
+    var serverPath = 'app/server/index.js';
+    var routeName = 'get' + str.classify(this.name);
+    var clientRoute = format('app.get(\'/%s/:id\', require(\'./routes/index\'));', this.resourceName);
+    var apiRoute = format('app.get(\'/api/%s/:id\', require(\'./routes/%s\'));', this.resourceName, routeName);
+
+    this.template('route.js', format('app/server/routes/%s.js', routeName));
+
+    var serverContents = this.readFileAsString(serverPath)
+      .replace(exports, clientRoute + '\n' + apiRoute + '\n\n' + exports);
+
+    this.write(serverPath, serverContents);
   }
 });
 

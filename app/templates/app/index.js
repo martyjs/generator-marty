@@ -6,6 +6,8 @@ var Router = require('./router');
 
 window.React = React; // For React DevTools
 
-Router.run(function (Handler) {
-  React.render(<Handler />, document.getElementById('app'));
-});
+if (process.env.NODE_ENV !== 'test') {
+  Router.run(function (Handler, state) {
+    React.render(<Handler {...state.params} />, document.getElementById('app'));
+  });
+}

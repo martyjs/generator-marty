@@ -37,12 +37,14 @@ module.exports = yeoman.generators.Base.extend({
 
   writing: {
     config: function () {
-      this.template('_gitignore', 'gitignore', this.context);
+      this.template('_gitignore', '.gitignore', this.context);
       this.template('_package.json', 'package.json', this.context);
+      this.template('karma.conf.js', 'karma.conf.js', this.context);
     },
 
     projectfiles: function () {
       this.template('Gruntfile.js', 'Gruntfile.js', this.context);
+      this.template('README.md', 'README.md', this.context);
       this.directory('app', 'app', this.context);
       this.directory('bin', 'bin', this.context);
       this.directory('test', 'test', this.context);
@@ -51,7 +53,9 @@ module.exports = yeoman.generators.Base.extend({
         this.destinationPath('.jshintrc')
       );
 
-      this.template('README.md', 'README.md', this.context);
+      ['actions', 'constants', 'apis', 'stores', 'utils'].forEach(function (folder) {
+        this.mkdir('app/' + folder);
+      }, this);
     }
   },
 

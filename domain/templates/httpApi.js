@@ -3,7 +3,7 @@ var <%= serverActionCreatorName %> = require('../actions/<%= serverActionCreator
 
 var <%= httpApiName %> = Marty.createHttpAPI({
   getById: function (id) {
-    return this.get('/<%= resourceName %>/' + id).then(function (<%= name %>) {
+    return this.get('/api/<%= resourceName %>/' + id).then(function (<%= name %>) {
       return <%= serverActionCreatorName %>.<%= addFunctionName %>(<%= name %>);
     });
   }

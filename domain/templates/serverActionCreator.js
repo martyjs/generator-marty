@@ -1,6 +1,6 @@
 var Marty = require('marty');
 
-var <%= serverActionCreatorName %> = Marty.createActionCreator({
+var <%= serverActionCreatorName %> = Marty.createActionCreators({
   <%= addFunctionName %>: function (<%= name %>) {
     this.dispatch(<%= name %>);
   }

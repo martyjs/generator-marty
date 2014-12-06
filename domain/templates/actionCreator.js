@@ -1,6 +1,6 @@
 var Marty = require('marty');
 
-var <%= actionCreatorName %> = Marty.createActionCreator({
+var <%= actionCreatorName %> = Marty.createActionCreators({
 });
 
 module.exports = <%= actionCreatorName %>;
