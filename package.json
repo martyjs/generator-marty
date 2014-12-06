@@ -17,7 +17,8 @@
     "test": "mocha"
   },
   "files": [
-    "app"
+    "app",
+    "domain"
   ],
   "keywords": [
     "yeoman-generator"
@@ -31,7 +32,8 @@
   "devDependencies": {
     "mocha": "*",
     "shelljs": "^0.3.0",
-    "chai": "^1.10.0"
+    "chai": "^1.10.0",
+    "pluralize": "^1.1.0"
   },
   "peerDependencies": {
     "yo": ">=1.0.0"
