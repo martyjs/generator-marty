@@ -14,7 +14,7 @@ var <%= storeName %> = Marty.createStore({
     this.hasChanged();
   },
   getById: function (id) {
-    return this.query(id,
+    return this.fetch(id,
       function () {
         return this.state[id];
       },
