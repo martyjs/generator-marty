@@ -3,6 +3,7 @@ var <%= httpApiName %> = require('../apis/<%= httpApiFileName %>');
 var <%= constantsName %> = require('../constants/<%= constantsFileName %>');
 
 var <%= storeName %> = Marty.createStore({
+  name: '<%= resourceName %>',
   handlers: {
     <%= addFunctionName %>: <%= constantsName %>.<%= addConstant %>
   },
