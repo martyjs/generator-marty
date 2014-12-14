@@ -1,3 +1,4 @@
+var _ = require('lodash');
 var Marty = require('marty');
 var <%= httpApiName %> = require('../apis/<%= httpApiFileName %>');
 var <%= constantsName %> = require('../constants/<%= constantsFileName %>');
@@ -9,6 +10,9 @@ var <%= storeName %> = Marty.createStore({
   },
   getInitialState: function () {
     return {};
+  },
+  getAll: function () {
+    return _.values(this.state);
   },
   <%= addFunctionName %>: function (<%= name %>) {
     this.state[<%= name %>.id] = <%= name %>;
