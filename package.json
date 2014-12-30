@@ -1,6 +1,6 @@
 {
   "name": "generator-marty",
-  "version": "0.5.3",
+  "version": "0.7.0",
   "description": "Yeoman generator",
   "license": "MIT",
   "main": "app/index.js",
@@ -30,10 +30,12 @@
     "underscore.string": "^2.4.0"
   },
   "devDependencies": {
-    "mocha": "*",
-    "shelljs": "^0.3.0",
     "chai": "^1.10.0",
-    "pluralize": "^1.1.0"
+    "jscs": "^1.9.0",
+    "jshint": "^2.5.11",
+    "mocha": "*",
+    "pluralize": "^1.1.0",
+    "shelljs": "^0.3.0"
   },
   "peerDependencies": {
     "yo": ">=1.0.0"
