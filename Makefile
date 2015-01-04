@@ -1,20 +1,16 @@
 BIN = ./node_modules/.bin
 
-.PHONY: bootstrap release lint test;
+.PHONY: bootstrap release test;
 
 SRC = $(shell find ./app ./domain ./test -type f -name '*.js')
 
-test: lint
+test:
 	@$(BIN)/mocha
 
 bootstrap: package.json
 	@npm install
 
-lint: bootstrap
-	# @$(BIN)/jscs $(SRC);
-	# @$(BIN)/jshint $(SRC);
-
-release: test build
+release: test
 	@npm version patch
 	@git push origin master && git push --tags
 	@npm publish
