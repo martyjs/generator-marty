@@ -53,7 +53,7 @@ module.exports = yeoman.generators.Base.extend({
         this.destinationPath('.jshintrc')
       );
 
-      ['actions', 'constants', 'apis', 'stores', 'utils'].forEach(function (folder) {
+      ['actions', 'constants', 'sources', 'stores', 'utils'].forEach(function (folder) {
         this.mkdir('app/' + folder);
       }, this);
     }

@@ -1,7 +1,7 @@
 var _ = require('lodash');
 var Marty = require('marty');
-var <%= httpApiName %> = require('../apis/<%= httpApiFileName %>');
 var <%= constantsName %> = require('../constants/<%= constantsFileName %>');
+var <%= httpStateSourceName %> = require('../sources/<%= httpStateSourceFileName %>');
 
 var <%= storeName %> = Marty.createStore({
   name: '<%= resourceName %>',
@@ -24,7 +24,7 @@ var <%= storeName %> = Marty.createStore({
         return this.state[id];
       },
       function () {
-        return <%= httpApiName %>.getById(id);
+        return <%= httpStateSourceName %>.getById(id);
       }
     );
   }
