@@ -40,6 +40,7 @@ module.exports = yeoman.generators.Base.extend({
       this.template('_gitignore', '.gitignore', this.context);
       this.template('_package.json', 'package.json', this.context);
       this.template('karma.conf.js', 'karma.conf.js', this.context);
+      this.template('_nodemonignore', '.nodemonignore', this.context);
     },
 
     projectfiles: function () {
