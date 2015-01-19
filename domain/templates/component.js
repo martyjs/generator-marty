@@ -1,6 +1,6 @@
 var React = require('react');
 var Marty = require('marty');
-var <%= storeName %> = require('../stores/<%= storeFileName %>');
+var <%= storeName %> = require('stores/<%= storeFileName %>');
 
 var <%= componentName %>State = Marty.createStateMixin({
   listenTo: [<%= storeName %>],

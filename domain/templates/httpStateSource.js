@@ -1,5 +1,5 @@
 var Marty = require('marty');
-var <%= sourceActionCreatorName %> = require('../actions/<%= sourceActionCreatorFileName %>');
+var <%= sourceActionCreatorName %> = require('actions/<%= sourceActionCreatorFileName %>');
 
 var <%= httpStateSourceName %> = Marty.createStateSource({
   type: 'http',

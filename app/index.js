@@ -49,6 +49,7 @@ module.exports = yeoman.generators.Base.extend({
       this.directory('app', 'app', this.context);
       this.directory('bin', 'bin', this.context);
       this.directory('test', 'test', this.context);
+      this.directory('build', 'build', this.context);
       this.fs.copy(
         this.templatePath('jshintrc'),
         this.destinationPath('.jshintrc')

@@ -1,7 +1,7 @@
 /** @jsx React.DOM */
 
+var Home = require('components/home');
 var PageObject = require('react-page-objects');
-var Home = require('../../app/components/home');
 
 var HomePageObject = PageObject.extend({
   getComponent: function (params) {

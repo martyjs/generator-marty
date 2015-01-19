@@ -62,9 +62,10 @@ module.exports = function (grunt) {
       src: [INPUT_PATH],
       dest: OUTPUT_PATH,
       options: {
-        transform: ['reactify', 'envify'],
         watch: !!options.watch,
         keepAlive: !!options.watch,
+        transform: ['reactify', 'envify'],
+        preBundleCB: require('./build/prebundle'),
         browserifyOptions: {
           debug: !!options.debug
         }
