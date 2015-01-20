@@ -3,6 +3,7 @@ var <%= sourceActionCreatorName %> = require('actions/<%= sourceActionCreatorFil
 
 var <%= httpStateSourceName %> = Marty.createStateSource({
   type: 'http',
+  displayName: '<%= httpStateSourceName %>',
   getById: function (id) {
     return this.get('/api/<%= resourceName %>/' + id).then(function (res) {
       return <%= sourceActionCreatorName %>.<%= addFunctionName %>(res.body);

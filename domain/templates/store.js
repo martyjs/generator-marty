@@ -4,7 +4,7 @@ var <%= constantsName %> = require('constants/<%= constantsFileName %>');
 var <%= httpStateSourceName %> = require('sources/<%= httpStateSourceFileName %>');
 
 var <%= storeName %> = Marty.createStore({
-  name: '<%= resourceName %>',
+  displayName: '<%= storeName %>',
   handlers: {
     <%= addFunctionName %>: <%= constantsName %>.<%= addConstant %>
   },
