@@ -1,6 +1,6 @@
 {
   "name": "generator-marty",
-  "version": "0.8.3",
+  "version": "0.8.4",
   "description": "Yeoman generator",
   "license": "MIT",
   "main": "app/index.js",
