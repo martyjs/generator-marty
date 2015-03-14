@@ -14,7 +14,7 @@ module.exports = yeoman.generators.Base.extend({
 
     // Have Yeoman greet the user.
     this.log(yosay(
-      'Welcome to the extraordinary' + chalk.red('Marty') + ' generator!'
+      'Welcome to the extraordinary ' + chalk.red('Marty v0.9') + ' generator!'
     ));
 
     var prompts = [{
@@ -46,6 +46,7 @@ module.exports = yeoman.generators.Base.extend({
     projectfiles: function () {
       this.template('Gruntfile.js', 'Gruntfile.js', this.context);
       this.template('README.md', 'README.md', this.context);
+
       this.directory('app', 'app', this.context);
       this.directory('bin', 'bin', this.context);
       this.directory('test', 'test', this.context);
@@ -55,9 +56,17 @@ module.exports = yeoman.generators.Base.extend({
         this.destinationPath('.jshintrc')
       );
 
-      ['actions', 'constants', 'sources', 'stores', 'utils'].forEach(function (folder) {
+      ['components', 'actions', 'queries', 'constants', 'sources', 'stores', 'utils'].forEach(function (folder) {
         this.mkdir('app/' + folder);
       }, this);
+
+      this.fs.copy(
+        this.templatePath('app/server/views/index.ejs'),
+        this.destinationPath('app/server/views/index.ejs')
+      );
+
+      var html = this.read('app/server/views/index.ejs').replace(/<%= name %>/g, this.name);
+      this.write('app/server/views/index.ejs', html);
     }
   },
 

@@ -1,24 +1,24 @@
 var React = require('react');
 var Marty = require('marty');
-var <%= storeName %> = require('stores/<%= storeFileName %>');
+var <%= storeName %> = require('../stores/<%= storeFileName %>');
 
-var <%= componentName %>State = Marty.createStateMixin({
+var <%= viewName %>State = Marty.createStateMixin({
   listenTo: [<%= storeName %>],
   getState: function () {
     return {
-      <%= name %>: <%= storeName %>.getById(this.props.id)
+      <%= name %>: <%= storeName %>.for(this).getById(this.props.id)
     };
   }
 });
 
-var <%= componentName %> = React.createClass({
-  mixins: [<%= componentName %>State],
+var <%= viewName %> = React.createClass({
+  mixins: [<%= viewName %>State],
   render: function () {
     return this.state.<%= name %>.when({
       pending: function () {
         return <div className='loading'>Loading</div>;
       },
-      error: function (error) {
+      failed: function (error) {
         return <div className='error'>{error.message}</div>;
       },
       done: function (<%= name %>) {
@@ -28,4 +28,4 @@ var <%= componentName %> = React.createClass({
   }
 });
 
-module.exports = <%= componentName %>;
+module.exports = <%= viewName %>;

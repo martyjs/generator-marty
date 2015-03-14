@@ -1,12 +1,12 @@
 var _ = require('lodash');
 var Marty = require('marty');
-var <%= constantsName %> = require('constants/<%= constantsFileName %>');
-var <%= httpStateSourceName %> = require('sources/<%= httpStateSourceFileName %>');
+var <%= queryName %> = require('../queries/<%= queryFileName %>');
+var <%= constantsName %> = require('../constants/<%= constantsFileName %>');
 
 var <%= storeName %> = Marty.createStore({
-  displayName: '<%= storeName %>',
+  id: '<%= storeName %>',
   handlers: {
-    <%= addFunctionName %>: <%= constantsName %>.<%= addConstant %>
+    <%= addFunctionName %>: <%= constantsName %>.<%= receiveConstant %>
   },
   getInitialState: function () {
     return {};
@@ -24,7 +24,7 @@ var <%= storeName %> = Marty.createStore({
         return this.state[id];
       },
       function () {
-        return <%= httpStateSourceName %>.getById(id);
+        return <%= queryName %>.for(this).getById(id);
       }
     );
   }

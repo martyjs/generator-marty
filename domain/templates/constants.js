@@ -1,7 +1,7 @@
 var Marty = require('marty');
 
 var <%= constantsName %> = Marty.createConstants([
-  '<%= addConstant %>'
+  '<%= receiveConstant %>'
 ]);
 
 module.exports = <%= constantsName %>;

@@ -12,42 +12,42 @@ module.exports = yeoman.generators.Base.extend({
     });
 
     this.name = camelCase(this.name);
-    this.componentName = this.className();
+    this.viewName = this.className();
     this.storeName = this.className('Store');
+    this.queryName = this.className('Query');
+    this.viewFileName = camelCase(this.className());
+    this.httpStateSourceName = this.className('API');
     this.constantsName = this.className('Constants');
     this.storeFileName = camelCase(this.name + 'Store');
-    this.addConstant = 'ADD_' + this.name.toUpperCase();
     this.resourceName = pluralize(camelCase(this.name));
-    this.componentFileName = camelCase(this.className());
+    this.queryFileName = camelCase(this.name + 'Query');
     this.addFunctionName = 'add' + str.classify(this.name);
     this.actionCreatorName = this.className('ActionCreators');
+    this.receiveConstant = 'RECEIVE_' + this.name.toUpperCase();
     this.constantsFileName =  camelCase(this.name + 'Constants');
-    this.httpStateSourceName = this.className('HttpStateSource');
     this.actionCreatorFileName = camelCase(this.name + 'ActionCreators');
-    this.sourceActionCreatorName = this.className('SourceActionCreators');
-    this.httpStateSourceFileName = camelCase(this.name + 'HttpStateSource');
-    this.sourceActionCreatorFileName = camelCase(this.name + 'SourceActionCreators');
+    this.httpStateSourceFileName = camelCase(this.name + 'API');
   },
   className: function (type) {
     return str.classify(this.name + (type || ""));
   },
   writing: function () {
+    this.template('view.js', filePath('views', this.viewName));
     this.template('store.js', filePath('stores', this.storeName));
+    this.template('query.js', filePath('queries', this.queryName));
     this.template('constants.js', filePath('constants', this.constantsName));
-    this.template('component.js', filePath('components', this.componentName));
     this.template('actionCreator.js', filePath('actions', this.actionCreatorName));
-    this.template('httpStateSource.js', filePath('sources', this.httpStateSourceName));
-    this.template('sourceActionCreator.js', filePath('actions', this.sourceActionCreatorName));
+    this.template('httpAPI.js', filePath('sources', this.httpStateSourceName));
 
     this.addClientRoute();
     this.addServerRoute();
     this.addNavigationActionCreator();
   },
   addClientRoute: function () {
-    var routes = 'var routes = [';
-    var routerPath = 'app/router.js';
-    var route = format('  <Route name="%s" path="/%s/:id" handler={require(\'./components/%s\')} />,',
-      camelCase(this.name), this.resourceName, this.componentFileName
+    var routes = 'module.exports = [';
+    var routerPath = 'app/router/routes.js';
+    var route = format('  <Route name="%s" path="/%s/:id" handler={require(\'../views/%s\')} />,',
+      camelCase(this.name), this.resourceName, this.viewFileName
     );
     var routerContent = this.readFileAsString(routerPath).replace(routes, routes + '\n' + route);
 
@@ -57,7 +57,7 @@ module.exports = yeoman.generators.Base.extend({
     var end = '  }\n});'
     var creatorPath = 'app/actions/navigationActionCreators.js';
     var creator = format('  },\n  navigateTo%s: function (id) {\n    navigateTo(\'%s\', { id: id });',
-      this.componentName,
+      this.viewName,
       camelCase(this.name)
     );
     var creatorContent = this.readFileAsString(creatorPath).replace(end, creator + '\n' + end);
@@ -68,13 +68,12 @@ module.exports = yeoman.generators.Base.extend({
     var exports = 'module.exports = app;';
     var serverPath = 'app/server/index.js';
     var routeName = 'get' + str.classify(this.name);
-    var clientRoute = format('app.get(\'/%s/:id\', require(\'./routes/index\'));', this.resourceName);
     var apiRoute = format('app.get(\'/api/%s/:id\', require(\'./routes/%s\'));', this.resourceName, routeName);
 
     this.template('route.js', format('app/server/routes/%s.js', routeName));
 
     var serverContents = this.readFileAsString(serverPath)
-      .replace(exports, clientRoute + '\n' + apiRoute + '\n\n' + exports);
+      .replace(exports, apiRoute + '\n\n' + exports);
 
     this.write(serverPath, serverContents);
   }

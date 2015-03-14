@@ -1,7 +1,7 @@
 var Marty = require('marty');
 
 var <%= actionCreatorName %> = Marty.createActionCreators({
-  displayName: '<%= actionCreatorName %>'
+  id: '<%= actionCreatorName %>'
 });
 
 module.exports = <%= actionCreatorName %>;
