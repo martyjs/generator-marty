@@ -3,12 +3,12 @@
   "version": "0.0.0",
   "private": true,
   "dependencies": {
-    "marty": "0.9.x",
+    "marty": "^0.9.0",
     "lodash": "3.5.0",
     "react": "^0.13.0",
     "babel": "^4.7.12",
     "marty-express": "^0.1.0",
-    "react-router": "git://github.com/nhunzaker/react-router"
+    "react-router": "^0.13.0"
   },
   "scripts": {
     "start": "grunt",

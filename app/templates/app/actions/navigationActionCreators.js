@@ -3,7 +3,7 @@ var Router = require('../router');
 
 var NavigationActionCreators = Marty.createActionCreators({
   displayName: 'Navigation',
-  navigateHome: function () {
+  navigateHome() {
     navigateTo('home');
   }
 });

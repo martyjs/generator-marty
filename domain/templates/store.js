@@ -8,25 +8,26 @@ var <%= storeName %> = Marty.createStore({
   handlers: {
     <%= addFunctionName %>: <%= constantsName %>.<%= receiveConstant %>
   },
-  getInitialState: function () {
+  getInitialState() {
     return {};
   },
-  getAll: function () {
+  getAll() {
     return _.values(this.state);
   },
-  <%= addFunctionName %>: function (<%= name %>) {
+  <%= addFunctionName %>(<%= name %>) {
     this.state[<%= name %>.id] = <%= name %>;
     this.hasChanged();
   },
-  getById: function (id) {
-    return this.fetch(id,
-      function () {
+  getById(id) {
+    return this.fetch({
+      id: id,
+      locally() {
         return this.state[id];
       },
-      function () {
+      remotely() {
         return <%= queryName %>.for(this).getById(id);
       }
-    );
+    });
   }
 });
 
