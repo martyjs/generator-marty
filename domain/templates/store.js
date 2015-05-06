@@ -1,10 +1,8 @@
 var _ = require('lodash');
 var Marty = require('marty');
-var <%= queryName %> = require('../queries/<%= queryFileName %>');
 var <%= constantsName %> = require('../constants/<%= constantsFileName %>');
 
 var <%= storeName %> = Marty.createStore({
-  id: '<%= storeName %>',
   handlers: {
     <%= addFunctionName %>: <%= constantsName %>.<%= receiveConstant %>
   },
@@ -25,7 +23,7 @@ var <%= storeName %> = Marty.createStore({
         return this.state[id];
       },
       remotely() {
-        return <%= queryName %>.for(this).getById(id);
+        return this.app.<%= queryFileName %>.getById(id);
       }
     });
   }

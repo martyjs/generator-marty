@@ -1,6 +1,5 @@
 var React = require('react');
 var Marty = require('marty');
-var <%= storeName %> = require('../stores/<%= storeFileName %>');
 
 var <%= viewName %> = React.createClass({
   render() {
@@ -11,10 +10,10 @@ var <%= viewName %> = React.createClass({
 });
 
 module.exports = Marty.createContainer(<%= viewName %>, {
-  listenTo: [<%= storeName %>],
+  listenTo: ['<%= storeFileName %>'],
   fetch: {
     <%= name %>() {
-      return <%= storeName %>.for(this).getById(this.props.id);
+      return this.app.<%= storeFileName %>.getById(this.props.id);
     }
   },
   pending() {

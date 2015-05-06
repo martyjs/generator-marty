@@ -3,11 +3,12 @@
   "version": "0.0.0",
   "private": true,
   "dependencies": {
-    "marty": "^0.9.0",
+    "bulk-require": "^0.2.1",
+    "marty": "^0.10.0",
+    "marty-express": "^0.10.0",
     "lodash": "3.5.0",
     "react": "^0.13.0",
     "babel": "^4.7.12",
-    "marty-express": "^0.2.0",
     "react-router": "^0.13.0"
   },
   "scripts": {
@@ -15,6 +16,7 @@
     "test": "grunt test"
   },
   "devDependencies": {
+    "bulkify": "^1.1.1",
     "body-parser": "^1.9.0",
     "browserify": "^9.0.0",
     "browserify-shim": "^3.8.2",
