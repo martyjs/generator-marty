@@ -1,4 +1,4 @@
-# generator-marty [![Build Status](https://secure.travis-ci.org/jhollingworth/generator-marty.png?branch=master)](https://travis-ci.org/jhollingworth/generator-marty)
+# generator-marty
 
 > [Yeoman](http://yeoman.io) generator
 
