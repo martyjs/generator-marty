@@ -1,7 +1,7 @@
 module.exports = function (grunt) {
   require('load-grunt-tasks')(grunt)
 
-  var INPUT_PATH = 'app/index.js';
+  var INPUT_PATH = 'app/main.js';
   var OUTPUT_PATH = './dist/javascripts/<%= name %>.js';
 
   grunt.registerTask('test', 'karma');
@@ -66,7 +66,7 @@ module.exports = function (grunt) {
       options: {
         watch: !!options.watch,
         keepAlive: !!options.watch,
-        transform: ['babelify', 'envify'],
+        transform: ['babelify', 'bulkify', 'envify'],
         browserifyOptions: {
           debug: !!options.debug
         }

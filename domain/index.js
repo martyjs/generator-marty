@@ -53,17 +53,6 @@ module.exports = yeoman.generators.Base.extend({
 
     this.write(routerPath, routerContent);
   },
-  addNavigationActionCreator: function () {
-    var end = '  }\n});'
-    var creatorPath = 'app/actions/navigationActionCreators.js';
-    var creator = format('  },\n  navigateTo%s: function (id) {\n    navigateTo(\'%s\', { id: id });',
-      this.viewName,
-      camelCase(this.name)
-    );
-    var creatorContent = this.readFileAsString(creatorPath).replace(end, creator + '\n' + end);
-
-    this.write(creatorPath, creatorContent);
-  },
   addServerRoute: function () {
     var exports = 'module.exports = app;';
     var serverPath = 'app/server/index.js';
@@ -76,6 +65,17 @@ module.exports = yeoman.generators.Base.extend({
       .replace(exports, apiRoute + '\n\n' + exports);
 
     this.write(serverPath, serverContents);
+  },
+  addNavigationActionCreator: function () {
+    var end = '  }\n});'
+    var creatorPath = 'app/actions/navigationActionCreators.js';
+    var creator = format('  },\n  navigateTo%s(id) {\n    this.navigateTo(\'%s\', { id: id });',
+      this.viewName,
+      camelCase(this.name)
+    );
+    var creatorContent = this.readFileAsString(creatorPath).replace(end, creator + '\n' + end);
+
+    this.write(creatorPath, creatorContent);
   }
 });
 
