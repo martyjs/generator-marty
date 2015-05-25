@@ -5,7 +5,7 @@ var <%= viewName %> = React.createClass({
   render() {
     var <%= name %> = this.props.<%= name %>;
 
-    return <div className='<%= name %>'>{<%= name %>}</div>;
+    return <div className='<%= name %>'>{<%= name %>.id}</div>;
   }
 });
 
