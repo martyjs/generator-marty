@@ -1,13 +1,17 @@
-var React = require('react');
+var _ = require('lodash');
 var Marty = require('marty');
-var Router = require('./router');
+var bulk = require('bulk-require');
 
-window.React = React; // For React Developer Tools
-window.Marty = Marty; // For Marty Developer Tools
+var App = Marty.createApplication(function () {
 
-if (process.env.NODE_ENV !== 'test') {
-  Marty.rehydrate();
-  Router.run((Handler, state) => {
-    React.render(<Handler {...state.params} />, document.getElementById('app'));
-  });
-}
+  this.router = require('./router');
+
+  _.each(bulk(__dirname, [
+    'stores/*.js',
+    'actions/*.js',
+    'queries/*.js',
+    'sources/*.js'
+  ]), this.register, this);
+});
+
+module.exports = App;

@@ -2,14 +2,13 @@ var Marty = require('marty');
 var Router = require('../router');
 
 var NavigationActionCreators = Marty.createActionCreators({
-  displayName: 'Navigation',
+  navigateTo(route, params) {
+    this.app.router.transitionTo(route, params);
+  },
   navigateHome() {
-    navigateTo('home');
+    this.navigateTo('home');
   }
 });
 
-function navigateTo(route, params) {
-  require('../router').transitionTo(route, params || {});
-}
 
 module.exports = NavigationActionCreators;
